@@ -43,21 +43,71 @@ $(document).ready(function(){
   $("#message-input").keypress(function (e) {
     if (e.keyCode == 13) {
       var name = $('#name-input').val();
-      var text = $('#message-input').val();
-      myFirebaseRef.push({name: name, text: text});
+      var message = $('#message-input').val();
+      myFirebaseRef.push({name: name, message: message});
       $('#message-input').val('');
     }
   });
 
   myFirebaseRef.on('child_added',function(snapshot) {
     var message = snapshot.val();
-    displayChatMessage(message.name, message.text);
+    displayChatMessage(message.name, message.message);
   });
 
-  function displayChatMessage(name,text) {
-    $('<div/>').text(text).prepend($('<em/>').text(name+':')).appendTo($('#chat-messages'));
-    $('#chat-messages')[0].scrollTop = $('#chat-messages')[0].scrollHeight;
+  var displayChatMessage = function(name,text) {
+    $('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#chat-messages'));
+    // $('#chat-messages')[0].scrollTop = $('#chat-messages')[0].scrollHeight;
   };
 
 });
 //need to save and then retrieve data.
+
+
+// davids way he did it.
+
+// var App = {};
+// App.firebase = new Firebase('http......')
+// App.sendMessage = function() {
+//   var chat_message = $(this).val();
+//   App.firebase.child('messages').push({
+//     message: chat_message
+//   })
+// }
+
+
+// document jQuery(document).ready(function($) {
+//   $('#chatbox').on('change', App.sendMessage);
+//   App.firebase.child('messages').on('child_added', function(m) {
+//     $('<div>').html(m.val().message).appendTo('#chats');
+//   })
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
